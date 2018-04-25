@@ -20,4 +20,20 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       return true;
     }
   }
+
+  function getFileTypeInfo($conn) {
+    $types;
+
+    $sql = "SELECT Name FROM files;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    foreach ($result as $row) {
+      $string = $row['Name'];
+      $sstring = strstr($string, '.');
+      $newstring = str_replace(".","",$sstring);
+      $types[] = $newstring;
+    }
+    return $types;
+  }
 ?>
