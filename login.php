@@ -1,14 +1,10 @@
 <?php
   require 'php/database.php';
+  require 'php/session.php';
+
   if(login($conn)) {
     header("Location: dashboard.php");
     exit();
-  }
-
-  function GetLoginSessionVar() {
-     $retvar = md5("Joey");
-     $retvar = 'usr_'.substr($retvar,0,10);
-     return $retvar;
   }
 
   function Login($conn) {
