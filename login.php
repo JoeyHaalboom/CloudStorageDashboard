@@ -21,11 +21,8 @@
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    if(checkLogin($conn, $username,$password)) {
-        echo "WERKT";
-
-    } else {
-        echo "WERKT NIET";
+    if(!checkLogin($conn, $username,$password)) {
+        header("Location: index.php");
         return false;
     }
 

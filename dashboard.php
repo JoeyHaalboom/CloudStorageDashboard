@@ -47,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="users.php">
                   <span data-feather="users"></span>
                   Users
                 </a>
@@ -84,7 +84,7 @@
         datasets: [{
           label:"Filetypes",
           data: <?php echo json_encode(filePercentage($conn));?>,
-          backgroundColor: ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b", "#F012BE", "#3D9970"]
+          backgroundColor: ["#ff0000", "#e6001a", "#cc0033", "#b2004c", "#990066", "#8c0073", "#800080", "#660099", "#4000bf", "#4d00b2", "#3300cc", "#1900e6", "#0000ff"]
         }],
         labels: <?php echo json_encode(fileTypes($conn));?>
       },

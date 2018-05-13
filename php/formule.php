@@ -9,7 +9,7 @@
 
   function filePercentage($conn) {
     $types = getFileTypeInfo($conn);
-    $tmp = array_count_values($types); //
+    $tmp = array_count_values($types);
     $type = array_unique($types);
     $finalarray = array_values($type); //Retuns array with unique file names
 
