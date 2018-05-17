@@ -48,19 +48,19 @@
     } else if($row == "FileSize") {
       echo '<tr>';
       echo '<td>Gemiddelde bestands grote (MB)</td>';
-      echo '<td>'.getAverageFileSize($conn).'</td>';
+      echo '<td>'.floor(getAverageFileSize($conn)).'</td>';
 
 
     } else if($row == "SharedFiles") {
       echo '<tr>';
       echo '<td>Gedeelde bestanden</td>';
-      echo '<td>'.getTotalUsers($conn).'</td>';
+      echo '<td>'.getSharedFiles($conn).'%</td>';
 
 
     } else if($row == "AgeFiles") {
       echo '<tr>';
       echo '<td>Gemiddelde leeftijd bestand</td>';
-      echo '<td>'.getTotalUsers($conn).'</td>';
+      echo '<td>'.floor(getAverageAge($conn)).' dagen</td>';
     }
     echo '</tr>';
   }
@@ -119,10 +119,10 @@
           </div>
           <div class="row">
             <div class="col-sm-4">
-              <canvas class="my-4 w-100" id="myChart" width="900" height="600"></canvas>
+              <canvas id="fileTypes" width="500" height="300"></canvas>
             </div>
             <div class="col-sm-4">
-
+              <canvas id="storage" width="400" height="300"></canvas>
             </div>
             <div class="col-sm-4">
               <div class="container">
@@ -168,7 +168,28 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   <script>
-    var ctx = document.getElementById("myChart");
+    var ctx = document.getElementById("storage");
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data = {
+        datasets: [{
+          label:"Opslag (MB)",
+          data: [30, 70],
+          backgroundColor: ["#ff0000", "#00ff00"]
+        }],
+        labels: ["Gebruikt", "Niet gebruikt"]
+      },
+      options: {
+        responsive: false,
+        title:{
+            display: true,
+            text: "Opslag (MB)"
+        }
+    }
+    });
+  </script>
+  <script>
+    var ctx = document.getElementById("fileTypes");
     var myChart = new Chart(ctx, {
       type: 'doughnut',
       data: data = {
@@ -180,7 +201,7 @@
         labels: <?php echo json_encode(fileTypes($conn));?>
       },
       options: {
-        responsive: true,
+        responsive: false,
         title:{
             display: true,
             text: "Filetypes"

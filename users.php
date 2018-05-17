@@ -59,6 +59,11 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Users</h1>
           </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <canvas id="myChart" width="500" height="300"></canvas>
+            </div>
+          </div>
         </main>
       </div>
     </div>
@@ -76,10 +81,10 @@
   <script>
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'horizontalBar',
       data: data = {
         datasets: [{
-          label:"Filetypes",
+          label:"Top 10 gebruikers",
           data: <?php echo json_encode(filePercentage($conn));?>,
           backgroundColor: ["#ff0000", "#e6001a", "#cc0033", "#b2004c", "#990066", "#8c0073", "#800080", "#660099", "#4000bf", "#4d00b2", "#3300cc", "#1900e6", "#0000ff"]
         }],
@@ -89,7 +94,7 @@
         responsive: true,
         title:{
             display: true,
-            text: "Filetypes"
+            text: "Top 10 gebruikers"
         }
     }
     });
