@@ -36,4 +36,51 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     return $types;
   }
+
+  function getStorageUsed($conn) {
+    $sql = "SELECT Size FROM files;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    $storage = 0;
+    foreach ($result as $row) {
+      $size = $row['Size'];
+      $storage += $size;
+    }
+    return $storage;
+  }
+
+  function getAverageFileSize($conn) {
+    $sql = "SELECT Size FROM files;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    $storage = 0;
+    foreach ($result as $row) {
+      $size = $row['Size'];
+      $storage += $size;
+    }
+    $sql = "SELECT COUNT(ID) FROM files;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $totalFiles = $stmt->fetch();
+    $average = $storage/$totalFiles["COUNT(ID)"];
+    return $average;
+  }
+
+  function getTotalFiles($conn) {
+    $sql = "SELECT COUNT(ID) FROM files;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $totalFiles = $stmt->fetch();
+    return $totalFiles["COUNT(ID)"];
+  }
+
+  function getTotalUsers($conn) {
+    $sql = "SELECT COUNT(ID) FROM users;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $totalFiles = $stmt->fetch();
+    return $totalFiles["COUNT(ID)"];
+  }
 ?>

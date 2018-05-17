@@ -8,6 +8,63 @@
     exit();
   }
 
+  function createTableRow($conn, $row) {
+    if($row == "Files") {
+      if(getTotalFiles($conn) >= 750) {
+        echo '<tr class="table-warning">';
+      } else if(getTotalFiles($conn) >= 1000) {
+        echo '<tr class="table-danger">';
+      } else {
+        echo '<tr class="table-success">';
+      }
+      echo '<td>Totale bestanden</td>';
+      echo '<td>'.getTotalFiles($conn).'</td>';
+
+
+    } else if($row == "Users") {
+      if(getTotalUsers($conn) >= 250) {
+        echo '<tr class="table-warning">';
+      } else if(getTotalUsers($conn) >= 500) {
+        echo '<tr class="table-danger">';
+      } else {
+        echo '<tr class="table-success">';
+      }
+      echo '<td>Totale gebruikers</td>';
+      echo '<td>'.getTotalUsers($conn).'</td>';
+
+
+    } else if($row == "StorageSpace") {
+      if(getStorageUsed($conn) >= 3500000) {
+        echo '<tr class="table-warning">';
+      } else if(getStorageUsed($conn) >= 3000000) {
+        echo '<tr class="table-danger">';
+      } else {
+        echo '<tr class="table-success">';
+      }
+      echo '<td>Totale ruimte over (MB)</td>';
+      echo '<td>',4000000-getStorageUsed($conn).'</td>';
+
+
+    } else if($row == "FileSize") {
+      echo '<tr>';
+      echo '<td>Gemiddelde bestands grote (MB)</td>';
+      echo '<td>'.getAverageFileSize($conn).'</td>';
+
+
+    } else if($row == "SharedFiles") {
+      echo '<tr>';
+      echo '<td>Gedeelde bestanden</td>';
+      echo '<td>'.getTotalUsers($conn).'</td>';
+
+
+    } else if($row == "AgeFiles") {
+      echo '<tr>';
+      echo '<td>Gemiddelde leeftijd bestand</td>';
+      echo '<td>'.getTotalUsers($conn).'</td>';
+    }
+    echo '</tr>';
+  }
+
 ?>
 
 <!doctype html>
@@ -60,8 +117,42 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
           </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <canvas class="my-4 w-100" id="myChart" width="900" height="600"></canvas>
+            </div>
+            <div class="col-sm-4">
 
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            </div>
+            <div class="col-sm-4">
+              <div class="container">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Statistieken</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                    createTableRow($conn, "Files");
+                    createTableRow($conn, "Users");
+                    createTableRow($conn, "StorageSpace");
+                    createTableRow($conn, "FileSize");
+                    createTableRow($conn, "SharedFiles");
+                    createTableRow($conn, "AgeFiles");
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+          </div>
         </main>
       </div>
     </div>
